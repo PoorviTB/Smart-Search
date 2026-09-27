@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Smart Search</title>
+</head>
+
+<body>
+
+    <h1>🔍 Smart Search</h1>
+
+    <form action="/search" method="POST">
+
+        <input
+            type="text"
+            name="topic"
+            placeholder="Search any topic..."
+            required
+        >
+
+        <button type="submit">Search</button>
+
+    </form>
+
+    {% if result %}
+
+        <h2>
+            📚 {{ topic }}
+        </h2>
+
+        <p>
+            {{ result }}
+        </p>
+
+    {% endif %}
+
+</body>
+
+</html>
