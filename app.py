@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
-import wikipedia
+import requests
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
@@ -16,63 +17,50 @@ def search():
     if not topic:
         return render_template(
             "index.html",
-            result="Please enter a topic."
+            result="Please enter a topic.",
+            topic=""
         )
 
     try:
-        # Search for the topic
-        results = wikipedia.search(topic)
+        url = "https://en.wikipedia.org/api/rest_v1/page/summary/" + requests.utils.quote(topic)
 
-        if not results:
+        response = requests.get(
+            url,
+            headers={"User-Agent": "SmartSearch/1.0"},
+            timeout=10
+        )
+
+        data = response.json()
+
+        if response.status_code != 200:
             return render_template(
                 "index.html",
-                result="❌ Information not found for this topic."
+                result="❌ Information not found for this topic.",
+                topic=topic
             )
 
-        # Take the closest result
-        best_match = results[0]
-
-        # Get information
-        summary = wikipedia.summary(
-            best_match,
-            sentences=5
+        title = data.get("title", topic)
+        summary = data.get(
+            "extract",
+            "No information found for this topic."
         )
 
         return render_template(
             "index.html",
             result=summary,
-            topic=best_match
+            topic=title
         )
-
-    except wikipedia.exceptions.DisambiguationError as e:
-
-        # If there are many meanings, use the first option
-        try:
-            summary = wikipedia.summary(
-                e.options[0],
-                sentences=5
-            )
-
-            return render_template(
-                "index.html",
-                result=summary,
-                topic=e.options[0]
-            )
-
-        except:
-            return render_template(
-                "index.html",
-                result="❌ Please try a more specific topic."
-            )
 
     except Exception as e:
 
+        print("SEARCH ERROR:", e)
+
         return render_template(
             "index.html",
-            result="❌ Information could not be found."
+            result="❌ Information could not be found.",
+            topic=topic
         )
 
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
