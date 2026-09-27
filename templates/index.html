@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,304 +5,579 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Smart Search</title>
+    <title>Smart Search | Explore Knowledge</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
         }
 
         body {
-            background: #f4f7fb;
-            color: #222;
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
         }
 
-        /* Navigation */
+        /* NAVBAR */
+
         nav {
-            background: #172554;
+            width: 100%;
             padding: 18px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            color: white;
+            background: white;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        nav h2 {
+        .logo {
             font-size: 24px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 25px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
             font-weight: bold;
         }
 
-        nav a:hover {
-            text-decoration: underline;
+        .logo span {
+            font-size: 28px;
         }
 
-        /* Hero */
+        nav a {
+            text-decoration: none;
+            color: #172033;
+            margin-left: 25px;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #5b5bf7;
+        }
+
+        /* HERO */
+
         .hero {
-            min-height: 430px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            min-height: 600px;
+            padding: 100px 8%;
             text-align: center;
-            padding: 40px 20px;
 
             background:
-                linear-gradient(
-                    rgba(23, 37, 84, 0.85),
-                    rgba(37, 99, 235, 0.75)
-                ),
-                url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
+                radial-gradient(circle at top left, #dfe4ff, transparent 35%),
+                radial-gradient(circle at bottom right, #d8f5ff, transparent 35%),
+                #f7f8ff;
+        }
 
-            background-size: cover;
-            background-position: center;
-            color: white;
+        .badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 30px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            font-size: 14px;
         }
 
         .hero h1 {
-            font-size: 52px;
-            margin-bottom: 15px;
+            font-size: 60px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: #5b5bf7;
         }
 
         .hero p {
             font-size: 20px;
-            margin-bottom: 30px;
+            color: #667085;
+            margin-bottom: 40px;
         }
 
-        /* Search */
+        /* SEARCH */
+
         .search-box {
-            width: 90%;
-            max-width: 700px;
-        }
-
-        .search-box form {
-            display: flex;
+            max-width: 750px;
+            margin: auto;
             background: white;
-            padding: 8px;
-            border-radius: 50px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 18px;
+            display: flex;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
         }
 
         .search-box input {
             flex: 1;
             border: none;
             outline: none;
-            padding: 16px 20px;
+            padding: 18px;
             font-size: 17px;
-            border-radius: 40px;
         }
 
         .search-box button {
             border: none;
-            background: #2563eb;
+            background: #5b5bf7;
             color: white;
-            padding: 14px 28px;
-            border-radius: 40px;
-            cursor: pointer;
+            padding: 0 30px;
+            border-radius: 12px;
             font-size: 16px;
-            font-weight: bold;
+            cursor: pointer;
         }
 
         .search-box button:hover {
-            background: #1d4ed8;
+            transform: scale(1.03);
         }
 
-        /* Topics */
-        .section {
-            padding: 60px 8%;
+        /* QUESTIONS */
+
+        .examples {
+            margin-top: 25px;
         }
 
-        .section h2 {
-            text-align: center;
-            margin-bottom: 35px;
-            font-size: 32px;
-        }
-
-        .topics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
+        .examples span {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
             background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: 0.3s;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
         }
 
-        .card:hover {
-            transform: translateY(-8px);
+        .examples span:hover {
+            background: #eeeeff;
         }
 
-        .card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
+        /* SECTION */
+
+        section {
+            padding: 80px 8%;
         }
 
-        .card-content {
-            padding: 20px;
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
         }
 
-        .card h3 {
+        .section-title h2 {
+            font-size: 36px;
             margin-bottom: 10px;
         }
 
-        .card p {
-            color: #666;
-            line-height: 1.5;
+        .section-title p {
+            color: #667085;
         }
 
-        /* Result */
+        /* TOPICS */
+
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .topic-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .topic-icon {
+            font-size: 45px;
+            margin-bottom: 18px;
+        }
+
+        .topic-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .topic-card p {
+            color: #667085;
+            line-height: 1.6;
+        }
+
+        /* RESULT */
+
         .result-section {
-            padding: 40px 8%;
+            background: #eef1ff;
         }
 
-        .result-box {
+        .result-card {
             max-width: 900px;
             margin: auto;
             background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.08);
         }
 
-        .result-box h2 {
-            color: #172554;
+        .result-card h2 {
             margin-bottom: 20px;
+            font-size: 30px;
         }
 
-        .result-box p {
+        .result-card p {
+            color: #475467;
             line-height: 1.8;
-            color: #444;
+            font-size: 17px;
         }
 
-        /* About */
-        .about {
-            background: #172554;
+        .result-image {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+
+        .read-more {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 22px;
+            background: #5b5bf7;
             color: white;
-            padding: 60px 8%;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        /* FEATURES */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
             text-align: center;
+            padding: 25px;
+            background: white;
+            border-radius: 18px;
         }
 
-        .about h2 {
-            margin-bottom: 15px;
+        .feature div {
+            font-size: 35px;
+            margin-bottom: 12px;
         }
 
-        .about p {
-            max-width: 750px;
-            margin: auto;
-            line-height: 1.7;
-        }
+        /* FOOTER */
 
-        /* Footer */
         footer {
             text-align: center;
-            padding: 20px;
-            background: #0f172a;
+            padding: 30px;
+            background: #172033;
             color: white;
         }
 
-        /* Mobile */
-        @media (max-width: 600px) {
+        /* MOBILE */
 
-            nav {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            nav ul {
-                gap: 15px;
-            }
+        @media (max-width: 800px) {
 
             .hero h1 {
-                font-size: 38px;
+                font-size: 40px;
             }
 
-            .search-box form {
+            .topics {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+
+            .search-box {
                 flex-direction: column;
-                border-radius: 15px;
+                gap: 10px;
             }
 
             .search-box button {
-                border-radius: 10px;
+                padding: 15px;
             }
         }
+
     </style>
 </head>
 
+
 <body>
 
-    <!-- Navigation -->
+    <!-- NAVIGATION -->
+
     <nav>
 
-        <h2>🔍 Smart Search</h2>
+        <div class="logo">
+            <span>🔍</span> Smart Search
+        </div>
 
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="#topics">Topics</a></li>
-            <li><a href="#about">About</a></li>
-        </ul>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#topics">Topics</a>
+            <a href="#about">About</a>
+        </div>
 
     </nav>
 
 
-    <!-- Hero -->
-    <section class="hero">
+    <!-- HERO -->
 
-        <h1>Search Smarter 🔍</h1>
+    <div class="hero" id="home">
 
-        <p>Explore knowledge and discover information instantly.</p>
+        <div class="badge">
+            ✨ Explore • Ask • Discover
+        </div>
 
-        <div class="search-box">
+        <h1>
+            Explore <span>Knowledge.</span><br>
+            Ask Anything.
+        </h1>
 
-            <form action="/search" method="POST">
+        <p>
+            Explore knowledge and discover information instantly.
+        </p>
 
-                <input
-                    type="text"
-                    name="topic"
-                    placeholder="Search any topic..."
-                    required
-                >
 
-                <button type="submit">
-                    🔍 Search
-                </button>
+        <!-- SEARCH FORM -->
 
-            </form>
+        <form
+            action="/search"
+            method="POST"
+            class="search-box"
+        >
+
+            <input
+                type="text"
+                name="topic"
+                id="searchInput"
+                placeholder="Ask anything... e.g. What is artificial intelligence?"
+                required
+            >
+
+            <button type="submit">
+                🔍 Search
+            </button>
+
+        </form>
+
+
+        <!-- EXAMPLE QUESTIONS -->
+
+        <div class="examples">
+
+            <span onclick="searchExample('What is artificial intelligence?')">
+                🧠 What is AI?
+            </span>
+
+            <span onclick="searchExample('What is machine learning?')">
+                🤖 What is ML?
+            </span>
+
+            <span onclick="searchExample('What is Python?')">
+                🐍 What is Python?
+            </span>
+
+            <span onclick="searchExample('What is cloud computing?')">
+                ☁️ What is Cloud Computing?
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOPICS -->
+
+    <section id="topics">
+
+        <div class="section-title">
+
+            <h2>🔥 Explore Topics</h2>
+
+            <p>
+                Discover popular technology topics
+            </p>
+
+        </div>
+
+
+        <div class="topics">
+
+            <div
+                class="topic-card"
+                onclick="searchExample('Artificial Intelligence')"
+            >
+
+                <div class="topic-icon">🧠</div>
+
+                <h3>Artificial Intelligence</h3>
+
+                <p>
+                    Learn how machines can perform tasks
+                    that normally require human intelligence.
+                </p>
+
+            </div>
+
+
+            <div
+                class="topic-card"
+                onclick="searchExample('Machine Learning')"
+            >
+
+                <div class="topic-icon">🤖</div>
+
+                <h3>Machine Learning</h3>
+
+                <p>
+                    Discover how computers learn from
+                    data and improve their predictions.
+                </p>
+
+            </div>
+
+
+            <div
+                class="topic-card"
+                onclick="searchExample('Python programming language')"
+            >
+
+                <div class="topic-icon">🐍</div>
+
+                <h3>Python</h3>
+
+                <p>
+                    Explore one of the world's most popular
+                    programming languages.
+                </p>
+
+            </div>
+
+
+            <div
+                class="topic-card"
+                onclick="searchExample('Cloud computing')"
+            >
+
+                <div class="topic-icon">☁️</div>
+
+                <h3>Cloud Computing</h3>
+
+                <p>
+                    Understand how applications and data
+                    are hosted and accessed through the cloud.
+                </p>
+
+            </div>
+
+
+            <div
+                class="topic-card"
+                onclick="searchExample('Cybersecurity')"
+            >
+
+                <div class="topic-icon">🔐</div>
+
+                <h3>Cybersecurity</h3>
+
+                <p>
+                    Learn about protecting computers,
+                    networks and information.
+                </p>
+
+            </div>
+
+
+            <div
+                class="topic-card"
+                onclick="searchExample('Web development')"
+            >
+
+                <div class="topic-icon">🌐</div>
+
+                <h3>Web Development</h3>
+
+                <p>
+                    Discover how websites and web
+                    applications are created.
+                </p>
+
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- Search Result -->
+    <!-- RESULT -->
+
     {% if result %}
 
     <section class="result-section">
 
-        <div class="result-box">
+        <div class="section-title">
 
-            <h2>📚 {{ topic }}</h2>
+            <h2>📚 Search Result</h2>
+
+            <p>
+                Information found for your search
+            </p>
+
+        </div>
+
+
+        <div class="result-card">
+
+            {% if image %}
+
+            <img
+                src="{{ image }}"
+                class="result-image"
+                alt="{{ topic }}"
+            >
+
+            {% endif %}
+
+
+            <h2>
+                📚 {{ topic }}
+            </h2>
+
 
             <p>
                 {{ result }}
             </p>
+
+
+            {% if source %}
+
+            <a
+                href="{{ source }}"
+                target="_blank"
+                class="read-more"
+            >
+                📖 Read More
+            </a>
+
+            {% endif %}
 
         </div>
 
@@ -312,28 +586,114 @@
     {% endif %}
 
 
-    <!-- Popular Topics -->
-    <section class="section" id="topics">
+    <!-- FEATURES -->
 
-        <h2>🌟 Explore Topics</h2>
+    <section id="about">
 
-        <div class="topics">
+        <div class="section-title">
 
-            <div class="card">
+            <h2>✨ Why Smart Search?</h2>
 
-                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80">
+            <p>
+                One place to explore knowledge
+            </p>
 
-                <div class="card-content">
+        </div>
 
-                    <h3>🤖 Artificial Intelligence</h3>
 
-                    <p>
-                        Learn about AI, intelligent systems,
-                        machine learning and modern technology.
-                    </p>
+        <div class="features">
 
-                </div>
+            <div class="feature">
+
+                <div>⚡</div>
+
+                <h3>Fast</h3>
+
+                <p>
+                    Get information quickly.
+                </p>
 
             </div>
 
-```
+
+            <div class="feature">
+
+                <div>🧠</div>
+
+                <h3>Smart</h3>
+
+                <p>
+                    Search topics and questions.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div>📚</div>
+
+                <h3>Knowledge</h3>
+
+                <p>
+                    Explore different subjects.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div>🌍</div>
+
+                <h3>Explore</h3>
+
+                <p>
+                    Discover something new.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            🔍 Smart Search © 2026
+        </p>
+
+        <p>
+            Explore Knowledge • Ask Anything • Discover
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function searchExample(text) {
+
+            document.getElementById("searchInput").value = text;
+
+            document
+                .getElementById("searchInput")
+                .focus();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
