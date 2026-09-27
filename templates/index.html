@@ -1,39 +1,339 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Smart Search</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        /* Navigation */
+        nav {
+            background: #172554;
+            padding: 18px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        nav h2 {
+            font-size: 24px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 430px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+
+            background:
+                linear-gradient(
+                    rgba(23, 37, 84, 0.85),
+                    rgba(37, 99, 235, 0.75)
+                ),
+                url("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=80");
+
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 52px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Search */
+        .search-box {
+            width: 90%;
+            max-width: 700px;
+        }
+
+        .search-box form {
+            display: flex;
+            background: white;
+            padding: 8px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 16px 20px;
+            font-size: 17px;
+            border-radius: 40px;
+        }
+
+        .search-box button {
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .search-box button:hover {
+            background: #1d4ed8;
+        }
+
+        /* Topics */
+        .section {
+            padding: 60px 8%;
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 35px;
+            font-size: 32px;
+        }
+
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Result */
+        .result-section {
+            padding: 40px 8%;
+        }
+
+        .result-box {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .result-box h2 {
+            color: #172554;
+            margin-bottom: 20px;
+        }
+
+        .result-box p {
+            line-height: 1.8;
+            color: #444;
+        }
+
+        /* About */
+        .about {
+            background: #172554;
+            color: white;
+            padding: 60px 8%;
+            text-align: center;
+        }
+
+        .about h2 {
+            margin-bottom: 15px;
+        }
+
+        .about p {
+            max-width: 750px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0f172a;
+            color: white;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .search-box form {
+                flex-direction: column;
+                border-radius: 15px;
+            }
+
+            .search-box button {
+                border-radius: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <h1>🔍 Smart Search</h1>
+    <!-- Navigation -->
+    <nav>
 
-    <form action="/search" method="POST">
+        <h2>🔍 Smart Search</h2>
 
-        <input
-            type="text"
-            name="topic"
-            placeholder="Search any topic..."
-            required
-        >
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="#topics">Topics</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
 
-        <button type="submit">Search</button>
+    </nav>
 
-    </form>
 
+    <!-- Hero -->
+    <section class="hero">
+
+        <h1>Search Smarter 🔍</h1>
+
+        <p>Explore knowledge and discover information instantly.</p>
+
+        <div class="search-box">
+
+            <form action="/search" method="POST">
+
+                <input
+                    type="text"
+                    name="topic"
+                    placeholder="Search any topic..."
+                    required
+                >
+
+                <button type="submit">
+                    🔍 Search
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Search Result -->
     {% if result %}
 
-        <h2>
-            📚 {{ topic }}
-        </h2>
+    <section class="result-section">
 
-        <p>
-            {{ result }}
-        </p>
+        <div class="result-box">
+
+            <h2>📚 {{ topic }}</h2>
+
+            <p>
+                {{ result }}
+            </p>
+
+        </div>
+
+    </section>
 
     {% endif %}
 
-</body>
 
-</html>
+    <!-- Popular Topics -->
+    <section class="section" id="topics">
+
+        <h2>🌟 Explore Topics</h2>
+
+        <div class="topics">
+
+            <div class="card">
+
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80">
+
+                <div class="card-content">
+
+                    <h3>🤖 Artificial Intelligence</h3>
+
+                    <p>
+                        Learn about AI, intelligent systems,
+                        machine learning and modern technology.
+                    </p>
+
+                </div>
+
+            </div>
+
+```
